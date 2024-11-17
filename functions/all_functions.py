@@ -116,6 +116,7 @@ async def is_posted(channel_id, message_id):
         async with db.execute("SELECT 1 FROM posts WHERE channel_id = ? AND message_id = ?", 
                               (channel_id, message_id)) as cursor:
             return await cursor.fetchone() is not None
+        db.close()
 
 
 async def add_to_queue(channel_id, message_id, media_path, caption):
@@ -123,6 +124,7 @@ async def add_to_queue(channel_id, message_id, media_path, caption):
         await db.execute("INSERT OR IGNORE INTO queue (channel_id, message_id, media_path, caption) VALUES (?, ?, ?, ?)",
                          (channel_id, message_id, media_path, caption))
         await db.commit()
+        db.close()
 
 # Функции для проверки на признаки рекламы
 def is_advertisement(message):
