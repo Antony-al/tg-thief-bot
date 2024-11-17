@@ -66,6 +66,10 @@ async def fetch_and_review(client):
     print("Начало выполнения fetch_and_post()")
     posts_to_post = []  # Список для хранения сообщений, которые нужно опубликовать
 
+    if not client.is_connected():
+        print("Клиент не подключен. Попытка подключиться...")
+        await client.connect()
+
     # Сбор сообщений, подходящих для постинга
     for channel in channels_to_monitor:
         print("Обрабатываем канал:", channel)
