@@ -61,7 +61,7 @@ async def send_review_message(chat_id, media_path, caption, from_channel_id, mes
         await bot.send_message(chat_id, caption, reply_markup=markup)
 
 
-async def fetch_and_review():
+async def fetch_and_review(client):
     from thief_bot import client
     print("Начало выполнения fetch_and_post()")
     posts_to_post = []  # Список для хранения сообщений, которые нужно опубликовать
@@ -100,9 +100,9 @@ async def fetch_and_review():
             print(f"Ошибка при обработке канала {channel}: {e}")
 
 # Продолжение функции для публикации сообщений с задержкой
-async def periodic_fetch_and_review():
+async def periodic_fetch_and_review(client):
     while True:
-        await fetch_and_review()
+        await fetch_and_review(client)
         print("Завершена проверка каналов. Следующая проверка через 1 час.")
         await asyncio.sleep(3600)  # Задержка в 1 час
 

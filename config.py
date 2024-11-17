@@ -1,12 +1,16 @@
 import re
+import json
 
-api_id = None
-api_hash = None
-bot_token = None
-review_chat_id = None
-channels_to_monitor = None
-my_channel = None
-my_channel_id = None
+with open("config.json", "r") as f:
+    config = json.load(f)
+
+api_id = config["api_id"]
+api_hash = config["api_hash"]
+bot_token = config["bot_token"]
+review_chat_id = config["review_chat_id"]
+channels_to_monitor = config["channels_to_monitor"]
+my_channel = config["my_channel"]
+my_channel_id = config["my_channel_id"]
 db_name = 'meme_bot.db'
 ad_keywords = ["реклама", "спонсор", "поддержи", "подписывайся", "партнёрская", "промо"]
 link_pattern = re.compile(r"(t\.me/|@|https?://)")
