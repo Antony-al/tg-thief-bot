@@ -9,6 +9,7 @@ from handlers import cmd_handlers, txt_handlers, handlers_func, callback_handler
 async def main():
     BOT_TOKEN = config.bot_token.get_secret_value()
     bot = Bot(token=BOT_TOKEN)
+    ############ СОЗДАТЬ БД
     storage = MemoryStorage()
     dp = Dispatcher(storage=storage)
     dp.include_router(cmd_handlers.router)
