@@ -19,3 +19,10 @@ async def cmd_start(message: Message):
 @router.message(Command("getmemes")) 
 async def get_memes(message: Message):
     pass
+
+""""
+api_hash, bot_token, my_channel, my_channel_id
+    """
+@router.message(Command("settings")) 
+async def set_settings(message: Message):
+    pass

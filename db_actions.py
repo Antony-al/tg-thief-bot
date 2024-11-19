@@ -55,9 +55,22 @@ class MemeStealerDb():
         result = self.cursor.fetchone()
         return result
 
-                                    ###Проверить в дейтсвии надо будет###
-                                    
-    def add_channel(self, usertgid, channel):
+
+    def get_my_channel(self, usertgid):
+        pass
+
+    def get_my_channel_id(self, usertgid):
+        pass
+    
+    def set_my_channel(self, usertgid, my_channel):
+        pass
+
+    def get_my_channel(self, usertgid):
+        pass    
+
+    """👇👇👇Проверить в дейтсвии надо будет👇👇👇""" 
+
+    def add_channel_for_steal(self, usertgid, channel):
         self.cursor.execute("SELECT channels_to_monitor FROM users WHERE usertgid = ?", (usertgid,))
         result = self.cursor.fetchone()
         if result:
@@ -67,3 +80,5 @@ class MemeStealerDb():
                 self.conn.commit()
             else:
                 print(f"Канал {channel} уже существует для usertgid {usertgid}.")
+
+    """☝️☝️☝️Проверить в дейтсвии надо будет☝️☝️☝️"""     
