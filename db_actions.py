@@ -31,6 +31,7 @@ class MemeStealerDb():
                 usertgid INTEGER,
                 api_id INTEGER DEFAULT 0,
                 api_hash TEXT DEFAULT "",
+                channels_to_monitor TEXT DEFAULT "t.me/eternalclassic|t.me/itvbia|",           
                 PRIMARY KEY (usertgid)
             )
         """)
@@ -48,4 +49,6 @@ class MemeStealerDb():
 
     def get_tg_client(self):
         pass
-        
+
+    def add_channel(self, user_id, channel):
+        pass    
