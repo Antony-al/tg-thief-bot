@@ -15,3 +15,7 @@ async def cmd_start(message: Message):
     else: db.close()    
     await message.answer(reply.start_reply())
 
+# загрузить мемы из указанных каналов
+@router.message(Command("getmemes")) 
+async def get_memes(message: Message):
+    pass
