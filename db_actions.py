@@ -24,5 +24,7 @@ class MemeStealerDb():
                 PRIMARY KEY (channel_id, message_id)
             )
         """)
-        return self.conn.commit()        
-                  
+        return self.conn.commit() 
+
+    def set_tg_client(self):
+        pass        
