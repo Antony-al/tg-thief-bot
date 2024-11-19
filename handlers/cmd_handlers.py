@@ -12,5 +12,6 @@ async def cmd_start(message: Message):
     if not db.user_exists(message.from_user.id):
         db.add_user(message.from_user.id)
         db.close()
+    else: db.close()    
     await message.answer(reply.start_reply())
 
