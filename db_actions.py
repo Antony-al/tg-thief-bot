@@ -38,10 +38,12 @@ class MemeStealerDb():
         return self.conn.commit() 
     
     def user_exists(self, user_id):
-        pass
+        result = self.cursor.execute("SELECT `usertgid` FROM `users` WHERE `usertgid` = ?", (user_id,))
+        return bool(len(result.fetchall()))
 
     def add_user(self, user_id):
-        pass
+        self.cursor.execute("INSERT INTO `users` (`usertgid`) VALUES (?)", (user_id,))
+        return self.conn.commit()
 
 
     def set_tg_client(self):
