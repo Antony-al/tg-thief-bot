@@ -44,8 +44,7 @@ class MemeStealerDb():
     def add_user(self, usertgid):
         self.cursor.execute("INSERT INTO `users` (`usertgid`) VALUES (?)", (usertgid,))
         return self.conn.commit()
-
-
+    
     def set_tg_client(self, usertgid, api_id, api_hash):
         self.cursor.execute("INSERT INTO users (usertgid, api_id, api_hash) VALUES (?, ?, ?)", (usertgid, api_id, api_hash,))
 
@@ -57,13 +56,13 @@ class MemeStealerDb():
 
                                     ###Проверить в дейтсвии надо будет###
                                     
-    def add_channel(self, user_id, channel):
-        self.cursor.execute("SELECT channels_to_monitor FROM users WHERE usertgid = ?", (user_id,))
+    def add_channel(self, usertgid, channel):
+        self.cursor.execute("SELECT channels_to_monitor FROM users WHERE usertgid = ?", (usertgid,))
         result = self.cursor.fetchone()
         if result:
             current_channels = result[0]
             if channel not in current_channels.split('|'):
-                self.cursor.execute("UPDATE users SET channels_to_monitor = ? WHERE usertgid = ?", (channel, user_id))
+                self.cursor.execute("UPDATE users SET channels_to_monitor = ? WHERE usertgid = ?", (channel, usertgid))
                 self.conn.commit()
             else:
-                print(f"Канал {channel} уже существует для usertgid {user_id}.")
+                print(f"Канал {channel} уже существует для usertgid {usertgid}.")
