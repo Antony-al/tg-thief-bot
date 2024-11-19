@@ -35,7 +35,8 @@ class MemeStealerDb():
                 PRIMARY KEY (usertgid)
             )
         """)
-        return self.conn.commit() 
+        return self.conn.commit()
+     
     
     def user_exists(self, usertgid):
         result = self.cursor.execute("SELECT `usertgid` FROM `users` WHERE `usertgid` = ?", (usertgid,))
