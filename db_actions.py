@@ -68,7 +68,7 @@ class MemeStealerDb():
     def get_my_channel(self, usertgid):
         pass    
 
-    """👇👇👇Проверить в дейтсвии надо будет👇👇👇""" 
+    """👇👇👇Проверить в действии надо будет👇👇👇""" 
 
     def add_channel_for_steal(self, usertgid, channel):
         self.cursor.execute("SELECT channels_to_monitor FROM users WHERE usertgid = ?", (usertgid,))
@@ -81,4 +81,4 @@ class MemeStealerDb():
             else:
                 print(f"Канал {channel} уже существует для usertgid {usertgid}.")
 
-    """☝️☝️☝️Проверить в дейтсвии надо будет☝️☝️☝️"""     
+    """☝️☝️☝️Проверить в действии надо будет☝️☝️☝️"""     
