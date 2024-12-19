@@ -61,10 +61,14 @@ async def send_review_message(chat_id, media_path, caption, from_channel_id, mes
         await bot.send_message(chat_id, caption, reply_markup=markup)
 
 
-async def fetch_and_review():
+async def fetch_and_review(client):
     from thief_bot import client
     print("Начало выполнения fetch_and_post()")
     posts_to_post = []  # Список для хранения сообщений, которые нужно опубликовать
+
+    if not client.is_connected():
+        print("Клиент не подключен. Попытка подключиться...")
+        await client.connect()
 
     # Сбор сообщений, подходящих для постинга
     for channel in channels_to_monitor:
@@ -100,9 +104,9 @@ async def fetch_and_review():
             print(f"Ошибка при обработке канала {channel}: {e}")
 
 # Продолжение функции для публикации сообщений с задержкой
-async def periodic_fetch_and_review():
+async def periodic_fetch_and_review(client):
     while True:
-        await fetch_and_review()
+        await fetch_and_review(client)
         print("Завершена проверка каналов. Следующая проверка через 1 час.")
         await asyncio.sleep(3600)  # Задержка в 1 час
 
@@ -112,6 +116,7 @@ async def is_posted(channel_id, message_id):
         async with db.execute("SELECT 1 FROM posts WHERE channel_id = ? AND message_id = ?", 
                               (channel_id, message_id)) as cursor:
             return await cursor.fetchone() is not None
+        db.close()
 
 
 async def add_to_queue(channel_id, message_id, media_path, caption):
@@ -119,6 +124,7 @@ async def add_to_queue(channel_id, message_id, media_path, caption):
         await db.execute("INSERT OR IGNORE INTO queue (channel_id, message_id, media_path, caption) VALUES (?, ?, ?, ?)",
                          (channel_id, message_id, media_path, caption))
         await db.commit()
+        db.close()
 
 # Функции для проверки на признаки рекламы
 def is_advertisement(message):
